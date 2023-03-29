@@ -1,8 +1,7 @@
 # RetroSynthesis
 
 A simple tool to visualize chemical reactions, i.e. retrosynthesis of target molecules used in COVID Moonshot drug discovery.
-
-
+<img width="1043" alt="retrosynth_vendors" src="https://user-images.githubusercontent.com/9704108/228403108-6ef5380f-8659-472a-9ef4-e1d7cd17a55d.png">
 ______
 
 ## Server Installation
