@@ -39,8 +39,11 @@ def make_routes(data):
             sourcesArr.append({"name": source})
         return sourcesArr
 
+    # if rxn is building block, continue to nest molecules
+    # think of recursive step soln
     for rxn in data:
         filtered = [mol_info for mol_info in rxn["molecules"] if mol_info['is_building_block'] == True]
+        # formatReaction should accept function called until reach leaf node molecule
         routesTreeArr.append({"name": rxn["reactions"][0]["target"], "children": format_sources(rxn["reactions"][0]["sources"]), "reaction": rxn["reactions"][0]["name"], "reactantInfo": filtered})
     return routesTreeArr
 

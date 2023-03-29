@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import {createUseStyles} from 'react-jss';
 import Tree from 'react-d3-tree';
 
+//  N.B. each reactant can also have reactants that compose it
+
 const useRouteStyles = createUseStyles({
   treeWrapper: {
     width: '50em',
@@ -89,7 +91,9 @@ export const Route = (props) => {
     <g>
       <foreignObject {...foreignObjectProps} width="600px" height="600px">
         <div>
-        {nodeDatum.children ? <div dangerouslySetInnerHTML={{__html: nodeDatum.attributes}} /> : <div dangerouslySetInnerHTML={{__html: nodeDatum.attributes}} onMouseEnter={() => {
+          {/* MAYBE NEED AN EVENT HANDLER HERE LIKE ON MOUSE CHANGE, THEN USE EVENT THERE */}
+        {nodeDatum.children ? <div dangerouslySetInnerHTML={{__html: nodeDatum.attributes}} /> : 
+        <div dangerouslySetInnerHTML={{__html: nodeDatum.attributes}} onMouseEnter={() => {
           setShowInfo(true);
         }}
         onMouseLeave={() => {

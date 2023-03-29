@@ -22,9 +22,12 @@ const useRoutesStyles = createUseStyles({
   }
 });
 
+
 export const Routes = () => {
   const styles = useRoutesStyles();
   const [routes, setRoutes] = useState([]);
+  // lazy state initialization, only need to read from localStorage once/first time renders
+  //useState(() => window.localStorage.getItem('routes') ?? []
 
   const fetchRoutes = async () => {
     const response = await fetch("http://localhost:8000/routes");
@@ -43,9 +46,39 @@ export const Routes = () => {
     setRoutes(newRoutes.data);
   };
 
+  // Idea to optimize: could set in localStorage and check to 
+  // retrieve first time component renders
+  // useState routes
+  // getItem, setItem window.localStorage.setItem('routes', routes)
+  // is slow to read from localStorage, so what actually
+  // want is lazy state initialization (pass fxn not value)
   useEffect(() => {
     fetchRoutes();
   }, []);
+
+
+  // FILTER WIP
+  // const reactionItems = ['Amidation', 'Ester Amidation', 'Amide Schotten-Baumann'];
+  // const [filter, setFilter] = useState(routes);
+
+  // const filterReaction = (reaction) => {
+  //   const newReaction = routes.filter((newRoutes) => {
+  //     return newRoutes.reaction === reaction
+  //   })
+  //   setFilter(newReaction)
+  // }
+
+  // const filterButtons = ({filterReaction}) => {
+  //   return (
+  //     <>
+  //       <div>
+  //         {reactionItems.map((reactionItem, reactionIdx) => {
+  //           return <button key={reactionIdx} onClick={() => filterReaction(reactionItem)}>{reactionItem}</button>
+  //         })}
+  //       </div>
+  //     </>
+  //   )
+  // }
 
   const fetchMoleculeSVG = async (smileStr) => {
     const response = await fetch(`http://localhost:8000/molecule/${smileStr}`);
@@ -67,6 +100,9 @@ export const Routes = () => {
 
   return (
     <div className={styles.foundation}>
+      {/* <div style={{display: 'flex', flexDirection: 'row'}}>{filterButtons.map((filterBtn) => (
+        <div style={{ border: '1px solid green', margin: '0 20px'}}>{filterBtn}</div>
+      ))}</div> */}
       <div>
       {routes.map((route, routeNumber) => (        
         <Route route={route} routeNumber={routeNumber} key={routeNumber} />
